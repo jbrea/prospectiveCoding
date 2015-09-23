@@ -4,9 +4,9 @@
 // experiment parameters
 #define RANDOM_SEED 421251
 #ifndef TRAININGCYCLES
-	#define TRAININGCYCLES 100	// number of training cycles
+	#define TRAININGCYCLES 200	// number of training cycles
 #endif
-#define DURATION 6000			// timesteps in ms
+#define DURATION 13000			// timesteps in ms
 #define NPRE 2000				// number of presynaptic neurons
 #define NUDGE_AT_US .005		// excitatory nudging conductance in ms^-1
 #define TAU_OU 1000				// time constant of template OU in ms
@@ -56,7 +56,7 @@ void initDerivedParams() {
 	 for(int t = 0; t < TIMEBINS; t++) {
 		 I2[t] = 0;
 		 if(t < US_START / DT || t > US_END / DT) I1[t] = 0; else I1[t] = NUDGE_AT_US * DT;
-		 if(t < CS_START / DT) {
+		 if(t < CS_START / DT || t > US_END / DT) {
 			 MIX[t] = 1.;
 		 } else if(t < CS_END / DT) {
 			 MIX[t] = MIX[t-1] - DT * (1. - MIX_LOW1) / (CS_END - CS_START); 

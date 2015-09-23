@@ -83,12 +83,14 @@ int main() {
 	double IRf = 1;
 	
 	for( int s = 0; s < TRAININGCYCLES; s++) {
-		if( s%2==0 ) {
+		if( (s <= TRAININGCYCLES - 9 && gsl_rng_uniform(r) > .5) || s%2==0) {
 			ou_t = OU2; IB = I2; IW = I1; IRf = .5;
 		} else {
 			ou_t = OU1; IB = I1; IW = I2; IRf = 1; 
 		}
-		for( int t = 0; t < TIMEBINS; t++) {
+		int interTrialInterval = gsl_rng_uniform_int(r, 7000 / DT);
+		printf("%f\n", DT * interTrialInterval / 1000.);
+		for( int t = 0; t < (US_END + 2000) / DT + interTrialInterval; t++) {
 			for( int i = 0; i < NPRE; i++) {
 				mixOUs(ouP + i, ou_t[t * NPRE + i], MIX[t], oumP + i);
 				updatePre(sueP+i, suiP+i, pspP + i, pspSP + i, pspTildeP + i, *(presP + i) = spiking(DT * phi(*(oumP + i)), gsl_ran_flat(r,0,1))); 
@@ -107,7 +109,7 @@ int main() {
 				updateWeight(wWP + i, rUW, *(pspTildeP+i), rVW, *(pspSP+i));
 				updateWeight(wRP + i, rUR, *(pspTildeP+i), rVR, *(pspSP+i));
 			}
-			if(s > TRAININGCYCLES - 9 ) { 
+			if(s > TRAININGCYCLES - 9 && t < (US_END + 2000) / DT ) { 
 				for(int i=0; i<stateLength; i++) {
 					fwrite(*(state+i), sizeof(double), 1, F);
 				}

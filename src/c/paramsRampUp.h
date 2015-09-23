@@ -20,11 +20,15 @@
 	#define GAMMA_POSTS exp(- DT/TAU_POSTS)
 #endif
 
-#define SEED_MAIN 230100138
+#ifndef SEED_MAIN
+	#define SEED_MAIN 230100138
+#endif
 #define SEED_PARAM 2389120
 
 #define M_OU 1
-#define TAU_OU 400
+#ifndef TAU_OU
+	#define TAU_OU 400
+#endif
 #define N_OU 1
 #define GAMMA_OU exp(- DT/TAU_OU)
 #define S_OU sqrt(2 * DT / TAU_OU)
@@ -34,10 +38,10 @@
 double *GE, *GI, *PRE_ACT;
 
 void initDerivedParams() {
-	gsl_rng *r;
-	gsl_rng_env_setup();
-	r = gsl_rng_alloc(gsl_rng_default);
-	gsl_rng_set(r, SEED_PARAM);
+	//gsl_rng *r;
+	//gsl_rng_env_setup();
+	//r = gsl_rng_alloc(gsl_rng_default);
+	//gsl_rng_set(r, SEED_PARAM);
 	 
 	GE = malloc(TIMEBINS * sizeof(double)); 
 	GI = malloc(TIMEBINS * sizeof(double)); 
@@ -71,6 +75,11 @@ void initDerivedParams() {
 			for(int i = 0; i < NPRE; i++) {
 				if(t%((int)(DURATION/DT)/3) == 0) PRE_ACT[NPRE * t + i] = gsl_rng_uniform(r) * PHI_MAX/2 * DT;
 				else PRE_ACT[NPRE * t + i] = PRE_ACT[NPRE * (t-1) + i];
+			}
+		#elif defined RAMPUPRATE_OU
+			for(int i = 0; i < NPRE; i++) {
+				if(t==0) PRE_ACT[i] = PHI_MAX/2 * DT*gsl_ran_gaussian_ziggurat(r,1);
+				else PRE_ACT[t * NPRE + i] = runOU(PRE_ACT[(t-1) * NPRE + i], PHI_MAX/4 * DT, GAMMA_OU, PHI_MAX/2 * DT*S_OU);
 			}
 		#else 
 			for(int i = 0; i < NPRE; i++) {

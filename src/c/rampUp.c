@@ -13,10 +13,10 @@ gsl_rng *r;
 #endif
 
 int main() {
-	initDerivedParams();
 	gsl_rng_env_setup();
 	r = gsl_rng_alloc(gsl_rng_default);
 	gsl_rng_set(r, SEED_MAIN);
+	initDerivedParams();
 	
 	FILE *postF = fopen(FILENAME_POST, FILEPOST_FLAG);
 	FILE *preF = fopen(FILENAME_PRE, "wb");
@@ -66,8 +66,12 @@ int main() {
 	#endif
 	
 	double u = 0, uV = 0, rU = 0, rV = 0, uI = 0, rI = 0, uInput = 0;
+	int on = 1;
 	
 	for( int s = 0; s < TRAININGCYCLES; s++) {
+		#ifdef STOCHASTIC_US
+			on = gsl_ran_bernoulli(r, .5);
+		#endif
 		for( int t = 0; t < TIMEBINS; t++) {
 			#ifdef PREDICT_OU
 				for(int i = 0; i < N_OU; i++) {
@@ -76,7 +80,7 @@ int main() {
 				gsl_blas_dgemv(CblasNoTrans, 1., wPre, ou, 0., preU); 
 			#endif
 			for( int i = 0; i < NPRE; i++) {
-				#ifdef RAMPUPRATE
+				#ifdef SPIKING
 					updatePre(sueP+i, suiP+i, pspP + i, pspSP + i, pspTildeP + i, *(presP + i) = spiking(PRE_ACT[t*NPRE + i], gsl_rng_uniform(r)));
 				#elif defined PREDICT_OU
 					//*(ouP+i) = runOU(*(ouP+i), M_OU, GAMMA_OU, S_OU);
@@ -89,7 +93,7 @@ int main() {
 				gsl_blas_ddot(wInput, ou, &uInput);
 				GE[t] = DT * phi(uInput);
 			#endif
-			updateMembrane(&u, &uV, &uI, w, psp, GE[t], GI[t]);
+			updateMembrane(&u, &uV, &uI, w, psp, on*GE[t], on*GI[t]);
 			#ifdef POSTSPIKING
 				rU = GAMMA_POSTS*rU + (1-GAMMA_POSTS)*spiking(DT * phi(u),  gsl_rng_uniform(r))/DT;
 			#else

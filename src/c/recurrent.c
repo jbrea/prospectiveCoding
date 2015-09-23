@@ -16,9 +16,9 @@ int main() {
 	gsl_rng_set(r, RANDOM_SEED);
 	initDerivedParams();
 	
-	FILE *outF = fopen("data/recurrent.dat", "w+b");
-	FILE *wDF = fopen("data/recurrentWD.dat", "w+b");
-	FILE *wF = fopen("data/recurrentW.dat", "w+b");
+	FILE *outF = fopen("data/planning.dat", "w+b");
+	FILE *wDF = fopen("data/planningWD.dat", "w+b");
+	FILE *wF = fopen("data/planningW.dat", "w+b");
 	
 	gsl_rng_set(r, 0);
 	
