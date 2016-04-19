@@ -74,10 +74,12 @@ void initDerivedParams() {
 		 if(t < US_START / DT || t > US_END / DT) I1[t] = 0; else I1[t] = NUDGE_AT_US * DT;
 		 if(t < CS_START / DT || t > US_END / DT) {
 			 MIX[t] = 1.;
-		 } else if(t < CS_END / DT) {
-			 MIX[t] = MIX[t-1] - DT * (1. - MIX_LOW1) / (CS_END - CS_START); 
-		 } else if(t < US_START / DT) {
-			 MIX[t] = MIX[t-1] + DT * (MIX_LOW2 - MIX_LOW1) / (US_START- CS_END);
-		 } else MIX[t] = MIX[t-1] + DT * (1. - MIX_LOW2) / (US_END - US_START);
+		 } else MIX[t] = MIX_LOW1;
+//			 
+//			 if(t < CS_END / DT) {
+//			 MIX[t] = MIX[t-1] - DT * (1. - MIX_LOW1) / (CS_END - CS_START); 
+//		 } else if(t < US_START / DT) {
+//			 MIX[t] = MIX[t-1] + DT * (MIX_LOW2 - MIX_LOW1) / (US_START- CS_END);
+//		 } else MIX[t] = MIX[t-1] + DT * (1. - MIX_LOW2) / (US_END - US_START);
 	 }	 
 }
