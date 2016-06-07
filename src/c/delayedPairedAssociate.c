@@ -23,7 +23,7 @@
 
 gsl_rng *r;
 #include "helper.h"
-#include "paramsConditioning.h"
+#include "paramsDelayedPairedAssociate.h"
 
 int main() {
 	gsl_rng_env_setup();
