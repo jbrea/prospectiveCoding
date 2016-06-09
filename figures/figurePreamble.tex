@@ -1,0 +1,18 @@
+\documentclass[10pt,crop=true]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{pstricks-add,pst-grad,xcolor,graphicx,cmbright,auto-pst-pdf,nicefrac}
+\definecolor{darkergreen}{rgb}{.6, .85, .6}
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{brightgreen}{rgb}{0,.9,0}
+\definecolor{gold}{rgb}{.851563,.644531,.125}
+\definecolor{waterblue}{rgb}{0,0,.5}
+\newcommand{\whistle}{\textcolor{waterblue}{A2}}
+\newcommand{\water}{\textcolor{waterblue}{B2}}
+\newcommand{\bell}{\textcolor{gold}{A1}}
+\newcommand{\bacon}{\textcolor{gold}{B1}}
+\graphicspath{{pics/}}
+\begin{document}
+\newcommand{\plasticSyn}[3]{\rput(#1,#2){\rput(0,0){\cnode{.07}{#3}}\psline[arrowsize=3pt]{->}(-.13,-.13)(.2,.2)}}
+\newcommand{\nudgeN}[4]{\nudgeNL{#1}{#2}{#3}{#4}{0}}
+\newcommand{\pyramN}[5]{}
+\newcommand{\nudgeNL}[5]{\rput(0,#4){\trinode[linearc=.03]{soma}{}}\pnode(0,2){dj}   \pnode(-.5,3){d1}   \pnode(.5,3){d2}   \pnode(#5,0){axon}   \ncline{dj}{soma}\ncline{d1}{dj}\ncline{d2}{dj}\ncangle[armB=0,linearc=.3,angleA=-90]{soma}{axon}   \psset{linecolor=blue}   \plasticSyn{-.51}{2.8}{#1}   \plasticSyn{.51}{2.8}{#2}  \psset{linecolor=darkgreen}   \rput(-.22	,#4){\cnode{.07}{#3}}  }

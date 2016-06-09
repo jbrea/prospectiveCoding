@@ -1,0 +1,36 @@
+\input{figurePreamble}
+\psset{yunit=.52cm,xunit=.7cm}
+\definecolor{neuron1}{rgb}{0,0,0}
+\definecolor{neuron2}{rgb}{0,0,0}
+\definecolor{neuron3}{rgb}{0,0,0}
+
+ \begin{pspicture}(1,-1.2)(6.6,3.8)
+
+
+\rput(0,-.5){
+\rput(1.5,0){\psset{linecolor=neuron1}\nudgeN{syn1B}{syn2B}{synNB}{1}}
+\rput(3.5,0){\psset{linecolor=neuron2}\nudgeN{syn1W}{syn2W}{synNW}{1}}
+\rput(5.5,0){\nudgeN{syn1R}{syn2R}{synNR}{1}}
+
+\psset{linecolor=neuron2}
+\pnode(3.5,0){axon2A}\pnode(4.5,3.9){axon2B}\ncangles[angleA=-90, armA=.1cm, armB=0cm, linearc=.15]{axon2A}{axon2B}
+\ncangles[angleA=90, armA=.1cm, armB=-.2cm, linearc=.15]{axon2B}{syn1B}
+\ncangles[angleA=90, armA=.1cm, armB=.2cm, linearc=.15]{axon2B}{syn2R}
+
+\psset{linecolor=neuron1}
+\pnode(1.5,0){axon1A}\pnode(2.5,1.9){axon1B}
+\ncangles[angleA=-90, armA=.1cm, armB=0cm, linearc=.15,linestyle=dashed]{axon1A}{axon1B}
+
+\psset{linecolor=neuron3}
+\pnode(5.5,0){axon3A}\pnode(6.5,1.9){axon3B}
+\ncangles[angleA=-90, armA=.1cm, armB=0cm, linearc=.15,linestyle=dashed]{axon3A}{axon3B}
+
+
+
+\psset{linecolor=darkgreen}
+\pnode(.5,-.5){inNB}   \ncline{inNB}{synNB} %\rput[r](1.2,1.5){\bacon}%\rput[r](1,1.5){taste of bacon}
+\pnode(2.5,-.5){inNW}   \ncline{inNW}{synNW} %\rput[r](1.2,1.0){\water}%\rput[r](1,1){taste of water}
+\pnode(4.5,-.5){inNR}   \ncline{inNR}{synNR} %\rput[r](1.2,.5){reward}
+}
+\end{pspicture}
+\end{document}

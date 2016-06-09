@@ -1,0 +1,21 @@
+\input{figurePreamble}
+
+ \begin{pspicture}(7.3,-1.9)(13.3,5.2)
+\scriptsize
+
+\rput(0,-1.5){
+\rput[tl](7,6.2){\includegraphics{figRampPre}}\rput{90}(7.05,5.4){\scriptsize synapse}
+}
+\rput[bl](7,1.2){\includegraphics{figRampPostNoPrediction}}\rput{90}(7.05,1.8){\scriptsize $\varphi(U)$ [Hz]}
+\rput[bl](11.2,1.3){\includegraphics{figPSPeqPSPT}}\rput[b](12.2,2.4){\small$\textcolor{blue}{\mathrm{PSP}}=\textcolor{red!50}{\widetilde{\mathrm{PSP}}}$}
+
+\rput(0,-.4){
+\rput[bl](7,-1){\includegraphics{figRampPost}}\rput{90}(7.05,.0){\scriptsize $\varphi(U)$ [Hz]}
+\rput[t](9.3,-1.2){\scriptsize time [ms]}
+\rput(8.8,.){$\tau_\mathrm{eff}=600$ ms}
+\rput[bl](11.2,-1){\includegraphics{figPSPneqPSPT}}\rput[b](12.2,.45){\small$\textcolor{blue}{\mathrm{PSP}}\neq\textcolor{red!50}{\widetilde{\mathrm{PSP}}}$}
+\rput(12.8,.0){$\tau=9$ ms}
+\rput[t](12.,-1.2){\scriptsize time [ms]}
+}
+ \end{pspicture}
+\end{document}

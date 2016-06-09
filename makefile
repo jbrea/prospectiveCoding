@@ -53,8 +53,12 @@ recurrent:
 	rm recurrent.o
 	time ./bin/recurrent
 
+figures:
+	./figures/createFigures.sh
+
 makedirs:
 	mkdir -p data bin
 
-all: makedirs rampUp rampUpC rampUpFP rampUpRateOU rampUpFPS rampUpRate  rotations delayedPairedAssociate recurrent
+all: makedirs rampUp rampUpC rampUpFP rampUpRateOU rampUpFPS rampUpRate  rotations delayedPairedAssociate recurrent figures
 
+.PHONY: all figures

@@ -32,9 +32,9 @@ int main() {
 	gsl_rng_set(r, RANDOM_SEED);
 	initDerivedParams();
 	
-	FILE *outF = fopen("data/planning.dat", "w+b");
-	FILE *wDF = fopen("data/planningWD.dat", "w+b");
-	FILE *wF = fopen("data/planningW.dat", "w+b");
+	FILE *outF = fopen("data/recurrent.dat", "w+b");
+	FILE *wDF = fopen("data/recurrentWD.dat", "w+b");
+	FILE *wF = fopen("data/recurrentW.dat", "w+b");
 	
 	gsl_rng_set(r, 0);
 	
@@ -70,15 +70,16 @@ int main() {
 	} 
 	
 	gsl_vector_view tmpv; double gE, wij, wd, uI;
-	
-	for( int s = 0; s < TRAININGCYCLES+1; s++) {
+
+	for( int s = 0; s < TRAININGCYCLES+5; s++) {
 		wd = 0;
 		for( int t = 0; t < TIMEBINS; t++) {
 			for( int i = 0; i < N; i++) {
 				updatePre(sueP+i, suiP+i, pspP + i, pspSP + i, pspTildeP + i, *(preP + i) = spiking(*(rUP+i), gsl_rng_uniform_pos(r))); 
 				tmpv = gsl_matrix_row(w, i);
 				if(s < TRAININGCYCLES - 1) gE = *(GE + t*N + i);
-				else if(t > 7*TIMEBINS/8 && s < TRAININGCYCLES) gE = *(GE + i); //&& t < 2*TIMEBINS/3 + TIMEBINS/NGROUPS/5
+				else if(t < 1*TIMEBINS/8 && s == TRAININGCYCLES + 3) gE = *(GE + i); 
+				//&& t < 2*TIMEBINS/3 + TIMEBINS/NGROUPS/5
 				else gE = 0;
 				updateMembrane(uP+i, uVP+i, &uI, &tmpv.vector, psp, gE, 0);
 				*(rUP+i) = phi(*(uP+i)); *(rVP+i) = phi(*(uVP+i));

@@ -1,0 +1,34 @@
+\input{figurePreamble}
+
+ \begin{pspicture}(.4,-.6)(6.3,5.7)
+\rput(0,-.5){
+\rput(2,0){\nudgeN{syn1B}{syn2B}{synNB}{1.5}}
+\rput(3.5,0){\nudgeN{syn1W}{syn2W}{synNW}{1}}
+\rput(5,0){\nudgeN{syn1R}{syn2R}{synNR}{.5}}
+\rput(3.5,3.95){\ovalnode{in}{\textcolor{white}{\Large Reg}}}\rput[r](2.6,3.95){\parbox{2.5cm}{\raggedleft\small STM neurons}}
+\cnode(3,3.85){.1}{in1} \cnode(4.,3.9){.1}{in2} \cnode(3.6,4.2){.1}{in3}\cnode(3.4,3.7){.1}{in4}
+\ncarc{in1}{in2}\ncarc{in3}{in2}\ncarc{in1}{in3}\ncarc{in4}{in1}\ncarc{in4}{in2}\ncarc{in4}{in3}
+\rput[b](3.5,5.5){\bell\ or \whistle}
+\pnode(3.5,5.3){aud}
+\ncline[offsetB=.3]{->}{aud}{in}
+\ncline[offsetB=0]{->}{aud}{in}
+\ncline[offsetB=-.3]{->}{aud}{in}
+\psset{linecolor=blue}
+\ncline{in}{syn1B}\ncline{in}{syn2B}
+\ncline{in}{syn1W}\ncline{in}{syn2W} 
+\ncline{in}{syn1R}\ncline{in}{syn2R} 
+\psset{linecolor=darkgreen,linewidth=1.5pt}
+\pnode(1.,1.){inNB}   
+\ncline{inNB}{synNB} 
+\rput[r](.7,1.){\bacon}
+\rput[l](2.25,1.5){\scriptsize neuron 1}
+\pnode(1.,.5){inNW}   
+\ncline{inNW}{synNW} 
+\rput[r](.7,.5){\water}
+\rput[l](3.75,1.){\scriptsize neuron 2}
+\ncline{inNB}{synNR} 
+\ncline[linewidth=.75pt]{inNW}{synNR}
+\rput[l](5.25,.5){\scriptsize neuron 3}
+}
+\end{pspicture}
+\end{document}
