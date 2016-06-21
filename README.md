@@ -3,7 +3,7 @@
 This repository contains code to run the simulations that are reported in
 
 J. Brea, A.T. Ga&aacute;l, R. Urbanczik and W. Senn, 
-**Prospective Coding by Spiking Neurons**,[PLoS Comput Biol, 12(6):
+**Prospective Coding by Spiking Neurons**, [PLoS Comput Biol, 12(6):
 e1005003](http://dx.doi.org/10.1371/journal.pcbi.1005003), 2016.
 
 
